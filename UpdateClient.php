@@ -1,7 +1,25 @@
+
 <?php
 require_once "connection.php";
 $customer_id = $customer_name = $customer_phone = $customer_address = $customer_email = $customer_vip = $customer_password = $customer_birthday = $customer_gender = "";
 $customer_id_err = $customer_name_err = $customer_phone_err = $customer_address_err = $customer_email_err = $customer_vip_err = $customer_password_err = $customer_birthday_err = $customer_gender_err = "";
+if($_SERVER["REQUEST_METHOD"] == "GET"){
+    $input_customer_id = trim($_GET["id"]);
+    $sql = "SELECT * FROM customers WHERE customer_id = $input_customer_id";
+    $result = $mysqli->query($sql);
+    foreach ($result as $row){
+        $customer_id = $row['customer_id'];
+        $customer_name = $row['customer_name'];
+        $customer_phone = $row['customer_phone'];
+        $customer_address = $row['customer_address'];
+        $customer_email = $row['customer_email'];
+        $customer_vip = $row['customer_vip'];
+        $customer_password = $row['customer_password'];
+        $customer_birthday = $row['customer_birthday'];
+        $customer_gender = $row['customer_gender'];
+    }
+}
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     $input_customer_id = trim($_POST["customer_id"]);
     if (empty($input_customer_id) || $input_customer_id == NULL) {
@@ -58,8 +76,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $customer_gender = $input_customer_gender;
     }
     if(empty($customer_id_err) && empty($customer_name_err) && empty($customer_phone_err) && empty($customer_address_err)&& empty($customer_email_err)&& empty($customer_vip_err)&& empty($customer_password_err)&& empty($customer_birthday_err)&& empty($customer_gender_err)){
-        $sql = "INSERT INTO customers (customer_id, customer_name, customer_phone, customer_address, customer_email, customer_vip, customer_password	, customer_birthday, customer_gender) 
-        VALUES ('$customer_id', '$customer_name', '$customer_phone', '$customer_address', '$customer_email', '$customer_vip', '$customer_password', '$customer_birthday', '$customer_gender')";
+        $sql = "UPDATE customers 
+                SET customer_name = '$customer_name', customer_phone = '$customer_phone', customer_address = '$customer_address', customer_email = '$customer_email', customer_vip = '$customer_vip', customer_password = '$customer_password', customer_birthday = '$customer_birthday', customer_gender = '$customer_gender' 
+                WHERE customer_id = $customer_id";
         if (mysqli_query($mysqli, $sql)) {
             header("location: index.php");
             exit();
@@ -70,6 +89,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         mysqli_close($mysqli);
     }
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,7 +109,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12">
-                <h2 class="mt-5">Добавить новый клиент</h2>
+                <h2 class="mt-5">Обновить клиент</h2>
                 <p>Пожалуйста, заполните эту форму и отправьте, чтобы добавить запись о клиенте в базу данных.</p>
                 <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <div class="form-group">
@@ -119,12 +139,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     </div>
                     <div class="form-group">
                         <label>VIP</label>
-                        <textarea type="text" name="customer_vip" class="form-control <?php echo (!empty($customer_vip_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $customer_vip; ?>"></textarea>
+                        <input type="text" name="customer_vip" class="form-control <?php echo (!empty($customer_vip_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $customer_vip; ?>"></input>
                         <span class="invalid-feedback"><?php echo $customer_vip_err;?></span>
                     </div>
                     <div class="form-group">
                         <label>Паррол клиента</label>
-                        <textarea type="text" name="customer_password" class="form-control <?php echo (!empty($customer_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $customer_password; ?>"></textarea>
+                        <input type="text" name="customer_password" class="form-control <?php echo (!empty($customer_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $customer_password; ?>"></input>
                         <span class="invalid-feedback"><?php echo $customer_password_err;?></span>
                     </div>
                     <div class="form-group">

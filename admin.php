@@ -7,7 +7,7 @@ if (isset($_GET["page"])) {
     $page = 1;
 }
 $start_from = ($page - 1) * $number_per_page;
-$sql = "SELECT * FROM customers limit $start_from, $number_per_page";
+$sql = "SELECT * FROM admins limit $start_from, $number_per_page";
 $result = $mysqli->query($sql);
 ?>
 <!DOCTYPE html>
@@ -29,40 +29,34 @@ $result = $mysqli->query($sql);
 <table class="table table-striped text-center">
     <tr>
         <th colspan="10">
-            <h2 style="display: inline;">Список клиенты</h2>
-            <a href="AddClient.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Добавить новый клиент</a>
+            <h2 style="display: inline;">Список администраторы</h2>
+            <a href="AddAdmin.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Добавить новый администратор</a>
         </th>
     </tr>
     <t>
-        <th>Номер клиента</th>
-        <th>Имя клиента</th>
+        <th>Номер администратор</th>
+        <th>Имя администратор</th>
         <th>Телефон</th>
-        <th>Адрес</th>
         <th>Эл.адрес</th>
-        <th>VIP</th>
         <th>Password</th>
-        <th>Дата рождения</th>
-        <th>Пол</th>
         <th>Действие</th>
+
     </t>
     <?php
     foreach($result as $row)
     {
         ?>
         <tr>
-            <td><?php echo $row['customer_id'] ?></td>
-            <td><?php echo $row['customer_name'] ?></td>
-            <td><?php echo $row['customer_phone'] ?></td>
-            <td><?php echo $row['customer_address'] ?></td>
-            <td><?php echo $row['customer_email'] ?></td>
-            <td><?php echo ($row['customer_vip'] == "1") ? "Yes" : "No"; ?></td>
-            <td><?php echo $row['customer_password'] ?></td>
-            <td><?php echo $row['customer_birthday'] ?></td>
-            <td><?php echo ($row['customer_gender'] == "1") ? "Female" : "Male"; ?></td>
+            <td><?php echo $row['admin_id'] ?></td>
+            <td><?php echo $row['admin_name'] ?></td>
+            <td><?php echo $row['admin_phone'] ?></td>
+            <td><?php echo $row['admin_email'] ?></td>
+            <td><?php echo $row['admin_password'] ?></td>
             <td>
-                <a href="UpdateClient.php?id=<?php echo $row['customer_id'] ?>" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>
-                <a href="DeleteClient.php?id=<?php echo $row['customer_id'] ?>" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>
+                <a href="UpdateAdmin.php?id=<?php echo $row['admin_id'] ?>" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>
+
             </td>
+
         </tr>
         <?php
     }
@@ -71,13 +65,13 @@ $result = $mysqli->query($sql);
 
 <p class="text-center">
     <?php
-    $sql = "select * from customers";
+    $sql = "select * from admins";
     $result= $mysqli->query($sql);
     $total_records = $result->num_rows;
     $total_pages=ceil($total_records/$number_per_page);
     for($i=1;$i<=$total_pages;$i++)
     {
-        echo "<a class='btn btn-primary mr-1' role='button' href='index.php?page=".$i."'>".$i."</a>" ;
+        echo "<a class='btn btn-primary mr-1' role='button' href='admin.php?page=".$i."'>".$i."</a>" ;
     }
     ?>
 </p>

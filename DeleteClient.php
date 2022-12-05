@@ -1,7 +1,7 @@
 <?php
 if(isset($_POST["id"]) && !empty($_POST["id"])){
     require_once "connection.php";
-    $sql = "DELETE FROM customers WHERE client_id = ?";
+    $sql = "DELETE FROM customers WHERE customer_id = ?";
     if($stmt = mysqli_prepare($mysqli, $sql)){
         mysqli_stmt_bind_param($stmt, "i", $param_id);
         $param_id = trim($_POST["id"]);
