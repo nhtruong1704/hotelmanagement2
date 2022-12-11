@@ -34,10 +34,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $sql = "INSERT INTO fooditems (fooditem_id, fooditem_name, fooditem_price, fooditems_description	) 
         VALUES ('$fooditem_id', '$fooditem_name', '$fooditem_price',  '$fooditem_description')";
         if (mysqli_query($mysqli, $sql)) {
-            header("location: index.php");
+            header("location: food.php");
             exit();
         } else {
-            header("location: error.php");
+            header("location: ErrorClient.php");
             exit();
         }
         mysqli_close($mysqli);

@@ -64,7 +64,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             header("location: index.php");
             exit();
         } else {
-            header("location: error.php");
+            header("location: ErrorClient.php");
             exit();
         }
         mysqli_close($mysqli);
@@ -119,12 +119,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                     </div>
                     <div class="form-group">
                         <label>VIP</label>
-                        <textarea type="text" name="customer_vip" class="form-control <?php echo (!empty($customer_vip_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $customer_vip; ?>"></textarea>
+                        <input type="text" name="customer_vip" class="form-control <?php echo (!empty($customer_vip_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $customer_vip; ?>"></input>
                         <span class="invalid-feedback"><?php echo $customer_vip_err;?></span>
                     </div>
                     <div class="form-group">
                         <label>Паррол клиента</label>
-                        <textarea type="text" name="customer_password" class="form-control <?php echo (!empty($customer_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $customer_password; ?>"></textarea>
+                        <input type="text" name="customer_password" class="form-control <?php echo (!empty($customer_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $customer_password; ?>"></input>
                         <span class="invalid-feedback"><?php echo $customer_password_err;?></span>
                     </div>
                     <div class="form-group">

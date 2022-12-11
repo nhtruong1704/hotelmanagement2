@@ -54,7 +54,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             header("location: chef.php");
             exit();
         } else {
-            header("location: error.php");
+            header("location: ErrorClient.php");
             exit();
         }
         mysqli_close($mysqli);

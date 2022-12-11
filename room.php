@@ -21,56 +21,104 @@ $result = $mysqli->query($sql);
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.1/dist/jquery.slim.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
     <title>Simple web for hotel management!</title>
 </head>
 <body>
 <?php include "navigation.html" ?>
+<div class="form-inline">
+    <hr>
+    <form method="POST">
+        <input tupe="text" id="search" placeholder="Search...">
+    </form>
+</div>
 
-<table class="table table-striped text-center">
-    <tr>
-        <th colspan="10">
-            <h2 style="display: inline;">Список номеры</h2>
-            <a href="AddRoom.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Добавить новый  номер</a>
-        </th>
-    </tr>
-    <t>
-        <th>Номер</th>
-        <th>Имя комнаты </th>
-        <th>Цена</th>
-        <th>Описание</th>
-        <th>Действие</th>
-
-    </t>
-    <?php
-    foreach($result as $row)
-    {
-        ?>
+<div id="getdata">
+    <table class="table table-striped text-center">
         <tr>
-            <td><?php echo $row['room_id'] ?></td>
-            <td><?php echo $row['room_name'] ?></td>
-            <td><?php echo $row['room_price'] ?></td>
-            <td><?php echo $row['room_description'] ?></td>
-            <td>
-                <a href="UpdateRoom.php?id=<?php echo $row['room_id'] ?>" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>
-
-            </td>
+            <th colspan="10">
+                <h2 style="display: inline;">Список номеры</h2>
+                <a href="AddRoom.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Добавить новый номер</a>
+            </th>
         </tr>
-        <?php
-    }
-    ?>
-</table>
+        <t>
+            <th>Номер</th>
+            <th>Имя комнаты</th>
+            <th>Цена</th>
+            <th>Описание</th>
+            <th>Действие</th>
 
+        </t>
+        <?php
+        foreach ($result as $row) {
+            ?>
+            <tr>
+                <td><?php echo $row['room_id'] ?></td>
+                <td><?php echo $row['room_name'] ?></td>
+                <td><?php echo $row['room_price'] ?></td>
+                <td><?php echo $row['room_description'] ?></td>
+                <td>
+                    <a href="UpdateRoom.php?id=<?php echo $row['room_id'] ?>" class="mr-3" title="Update Record"
+                       data-toggle="tooltip"><span class="fa fa-pencil"></span></a>
+
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+    </table>
+</div>
+
+<div id="showdata"></div>
 <p class="text-center">
     <?php
     $sql = "select * from rooms";
-    $result= $mysqli->query($sql);
+    $result = $mysqli->query($sql);
     $total_records = $result->num_rows;
-    $total_pages=ceil($total_records/$number_per_page);
-    for($i=1;$i<=$total_pages;$i++)
-    {
-        echo "<a class='btn btn-primary mr-1' role='button' href='room.php?page=".$i."'>".$i."</a>" ;
+    $total_pages = ceil($total_records / $number_per_page);
+    for ($i = 1; $i <= $total_pages; $i++) {
+        echo "<a class='btn btn-primary mr-1' role='button' href='room.php?page=" . $i . "'>" . $i . "</a>";
     }
     ?>
 </p>
 </body>
 </html>
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#search").keyup(function () {
+            var value = $(this).val();
+            if (value != "") {
+                $.ajax({
+                    url: 'FindRoom.php',
+                    method: 'POST',
+                    data: {value: value},
+                    success: function (data) {
+                        $("#showdata").html(data);
+                        $("#showdata").show();
+                        $("#getdata").hide();
+
+                    }
+                });
+            } else {
+                $("#showdata").hide();
+                $("#getdata").show();
+            }
+        });
+    });
+</script>

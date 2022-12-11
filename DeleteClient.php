@@ -16,7 +16,7 @@ if(isset($_POST["id"]) && !empty($_POST["id"])){
     mysqli_close($mysqli);
 } else{
     if(empty(trim($_GET["id"]))){
-        header("location: error.php");
+        header("location: ErrorClient.php");
         exit();
     }
 }

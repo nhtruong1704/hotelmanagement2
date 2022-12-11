@@ -25,50 +25,85 @@ $result = $mysqli->query($sql);
 </head>
 <body>
 <?php include "navigation.html" ?>
+<div class="form-inline">
+    <hr>
+    <form method="POST">
+        <input tupe="text" id="search" placeholder="Search...">
+    </form>
+</div>
 
-<table class="table table-striped text-center">
-    <tr>
-        <th colspan="10">
-            <h2 style="display: inline;">Список горничная</h2>
-            <a href="AddHousekeeping.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Добавить новый горничная</a>
-        </th>
-    </tr>
-    <t>
-        <th>Номер горничная</th>
-        <th>Имя горничная</th>
-        <th>Зарплата</th>
-        <th>Действие</th>
-
-    </t>
-    <?php
-    foreach($result as $row)
-    {
-        ?>
+<div id="getdata">
+    <table class="table table-striped text-center">
         <tr>
-            <td><?php echo $row['housekeeping_id'] ?></td>
-            <td><?php echo $row['housekeeping_name'] ?></td>
-            <td><?php echo $row['housekeeping_salary'] ?></td>
-            <td>
-                <a href="UpdateHousekeeping.php?id=<?php echo $row['housekeeping_id'] ?>" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>
-
-            </td>
+            <th colspan="10">
+                <h2 style="display: inline;">Список горничная</h2>
+                <a href="AddHousekeeping.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Добавить
+                    новый горничная</a>
+            </th>
         </tr>
-        <?php
-    }
-    ?>
-</table>
+        <t>
+            <th scope="col">Номер горничная</th>
+            <th scope="col">Имя горничная</th>
+            <th scope="col">Зарплата</th>
+            <th scope="col">Действие</th>
 
+        </t>
+        <?php
+        foreach ($result as $row) {
+            ?>
+            <tr>
+                <td><?php echo $row['housekeeping_id'] ?></td>
+                <td><?php echo $row['housekeeping_name'] ?></td>
+                <td><?php echo $row['housekeeping_salary'] ?></td>
+                <td>
+                    <a href="UpdateHousekeeping.php?id=<?php echo $row['housekeeping_id'] ?>" class="mr-3"
+                       title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>
+
+                </td>
+            </tr>
+            <?php
+        }
+        ?>
+    </table>
+</div>
+
+<div id="showdata"></div>
 <p class="text-center">
     <?php
     $sql = "select * from housekeepings";
-    $result= $mysqli->query($sql);
+    $result = $mysqli->query($sql);
     $total_records = $result->num_rows;
-    $total_pages=ceil($total_records/$number_per_page);
-    for($i=1;$i<=$total_pages;$i++)
-    {
-        echo "<a class='btn btn-primary mr-1' role='button' href='housekeeping.php?page=".$i."'>".$i."</a>" ;
+    $total_pages = ceil($total_records / $number_per_page);
+    for ($i = 1; $i <= $total_pages; $i++) {
+        echo "<a class='btn btn-primary mr-1' role='button' href='housekeeping.php?page=" . $i . "'>" . $i . "</a>";
     }
     ?>
 </p>
 </body>
 </html>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+        $("#search").keyup(function () {
+            var value = $(this).val();
+            if (value != "") {
+                $.ajax({
+                    url: 'FindHousekeeping.php',
+                    method: 'POST',
+                    data: {value: value},
+                    success: function (data) {
+                        $("#showdata").html(data);
+                        $("#showdata").show();
+                        $("#getdata").hide();
+
+                    }
+                });
+            } else {
+                $("#showdata").hide();
+                $("#getdata").show();
+            }
+        });
+    });
+</script>

@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Máy chủ: 127.0.0.1
--- Thời gian đã tạo: Th10 21, 2022 lúc 08:04 PM
--- Phiên bản máy phục vụ: 10.4.25-MariaDB
--- Phiên bản PHP: 8.1.10
+-- Thời gian đã tạo: Th12 10, 2022 lúc 11:23 PM
+-- Phiên bản máy phục vụ: 10.4.27-MariaDB
+-- Phiên bản PHP: 7.4.33
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -33,7 +33,7 @@ CREATE TABLE `admins` (
   `admin_phone` varchar(20) DEFAULT NULL,
   `admin_email` varchar(50) NOT NULL,
   `admin_password` varchar(50) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `admins`
@@ -54,7 +54,7 @@ CREATE TABLE `bills` (
   `bill_id` int(11) NOT NULL,
   `bill_total_cost` int(11) NOT NULL,
   `bill_paid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `bills`
@@ -83,7 +83,7 @@ CREATE TABLE `chefs` (
   `chef_name` varchar(50) NOT NULL,
   `chef_position` varchar(15) NOT NULL,
   `chef_salary` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `chefs`
@@ -107,18 +107,18 @@ CREATE TABLE `customers` (
   `customer_name` varchar(50) NOT NULL,
   `customer_phone` varchar(20) DEFAULT NULL,
   `customer_address` varchar(255) DEFAULT NULL,
-  `customers_email` varchar(50) NOT NULL,
+  `customer_email` varchar(50) NOT NULL,
   `customer_vip` int(11) NOT NULL,
   `customer_password` varchar(50) NOT NULL,
   `customer_birthday` varchar(20) DEFAULT NULL,
   `customer_gender` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `customers`
 --
 
-INSERT INTO `customers` (`customer_id`, `customer_name`, `customer_phone`, `customer_address`, `customers_email`, `customer_vip`, `customer_password`, `customer_birthday`, `customer_gender`) VALUES
+INSERT INTO `customers` (`customer_id`, `customer_name`, `customer_phone`, `customer_address`, `customer_email`, `customer_vip`, `customer_password`, `customer_birthday`, `customer_gender`) VALUES
 (1, 'Albedo', '7 936 761-22-58', 'Russia', 'Albedo123@mail.ru', 0, '123456', '01.01.1998', 1),
 (2, 'Aloy', '7 979 873-34-85', 'America', 'Aloy159@mail.ru', 1, '123456', '02.01.2000', 0),
 (3, 'Fischl', '7 932 950-78-97', 'France', 'Fischl456@mail.ru', 0, '123456', '13.02.1997', 0),
@@ -141,7 +141,7 @@ CREATE TABLE `fooditems` (
   `fooditem_name` varchar(50) NOT NULL,
   `fooditem_price` int(11) NOT NULL,
   `fooditem_description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `fooditems`
@@ -179,7 +179,7 @@ CREATE TABLE `foodorders` (
   `foodorder_id` int(11) NOT NULL,
   `foodorder_no` int(11) NOT NULL,
   `fooditem_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `foodorders`
@@ -207,7 +207,7 @@ CREATE TABLE `housekeepings` (
   `housekeeping_id` int(11) NOT NULL,
   `housekeeping_name` varchar(50) NOT NULL,
   `housekeeping_salary` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `housekeepings`
@@ -230,7 +230,7 @@ CREATE TABLE `receptionists` (
   `receptionist_id` int(11) NOT NULL,
   `receptionist_name` varchar(50) NOT NULL,
   `receptionist_salary` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `receptionists`
@@ -254,7 +254,7 @@ CREATE TABLE `rooms` (
   `room_name` varchar(20) NOT NULL,
   `room_price` int(11) NOT NULL,
   `room_description` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Đang đổ dữ liệu cho bảng `rooms`

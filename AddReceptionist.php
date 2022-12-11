@@ -28,10 +28,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $sql = "INSERT INTO receptionists (receptionist_id, receptionist_name, receptionist_position, receptionists_salary	) 
         VALUES ('$receptionist_id', '$receptionist_name',  '$receptionist_salary')";
         if (mysqli_query($mysqli, $sql)) {
-            header("location: index.php");
+            header("location: receptionist.php");
             exit();
         } else {
-            header("location: error.php");
+            header("location: ErrorClient.php");
             exit();
         }
         mysqli_close($mysqli);

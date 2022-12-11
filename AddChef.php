@@ -32,12 +32,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
     if(empty($chef_id_err) && empty($chef_name_err) && empty($chef_position_err) && empty($chef_salary_err)){
         $sql = "INSERT INTO chefs (chef_id, chef_name, chef_position, chefs_salary	) 
-        VALUES ('$chef_id', '$chef_name', '$chef_position',  '$chef_salary')";
+        VALUES ('$chef_id', '$chef_name', '$chef_position', '$chef_salary')";
         if (mysqli_query($mysqli, $sql)) {
-            header("location: index.php");
+            header("location: chef.php");
             exit();
         } else {
-            header("location: error.php");
+            header("location: ErrorClient.php");
             exit();
         }
         mysqli_close($mysqli);

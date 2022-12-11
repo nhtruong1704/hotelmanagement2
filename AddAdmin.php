@@ -37,13 +37,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     }
 
     if(empty($admin_id_err) && empty($admin_name_err) && empty($admin_phone_err) && empty($admin_email_err) && empty($admin_password_err)){
-        $sql = "INSERT INTO admins (admin_id, admin_name, admin_phone, admins_email, admin_password	) 
+        $sql = "INSERT INTO admins (admin_id, admin_name, admin_phone, admins_email, admin_password	)  
         VALUES ('$admin_id', '$admin_name', '$admin_phone',  '$admin_email',  '$admin_password')";
         if (mysqli_query($mysqli, $sql)) {
-            header("location: index.php");
+            header("location: admin.php");
             exit();
-        } else {
-            header("location: error.php");
+        }
+        else {
+            header("location: ErrorAdmin.php");
             exit();
         }
         mysqli_close($mysqli);
@@ -95,7 +96,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
                     <div class="form-group">
                         <label>Паррол администратора</label>
-                        <textarea type="text" name="admin_password" class="form-control <?php echo (!empty($admin_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $admin_password; ?>"></textarea>
+                        <input type="text" name="admin_password" class="form-control <?php echo (!empty($admin_password_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $admin_password; ?>"></input>
                         <span class="invalid-feedback"><?php echo $admin_password_err;?></span>
                     </div>
 

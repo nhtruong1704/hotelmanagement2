@@ -34,10 +34,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         $sql = "INSERT INTO rooms (room_id, room_name, room_price, rooms_description	) 
         VALUES ('$room_id', '$room_name', '$room_price',  '$room_description')";
         if (mysqli_query($mysqli, $sql)) {
-            header("location: index.php");
+            header("location: room.php");
             exit();
         } else {
-            header("location: error.php");
+            header("location: ErrorClient.php");
             exit();
         }
         mysqli_close($mysqli);
